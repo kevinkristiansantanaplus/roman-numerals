@@ -24,29 +24,42 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Obter a última versão do Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Instalar extensões do PHP necessárias
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install \
+        gd \
+        iconv \
+        mbstring \
+        intl \
+        mysqli \
+        pdo_mysql \
+        soap \
+        sockets \
+        zip
 
-# Criar um usuário de sistema para executar o Composer e os comandos Artisan
-RUN useradd -G www-data,root -u $uid -d /home/$user $user \
-    && mkdir -p /home/$user/.composer \
-    && mkdir /home/$user/oracle \
-    && chown -R $user:$user /home/$user
-
-# Instalação das extensões do PHP
-RUN docker-php-ext-install \
-            iconv \
-            mbstring \
-            intl \
-            gd \
-            mysqli \
-            pdo_mysql \
-            soap \
-            sockets \
-            zip
+# Instalar Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Definir o diretório de trabalho
 WORKDIR /var/www
 
-# Trocar para o usuário especificado
+# Copiar arquivos do aplicativo para o container
+COPY . /var/www
+
+# Trocar para o usuário especificado (se fornecido)
+ARG user
+ARG uid
+RUN if [ -n "$user" ]; then \
+    if ! id -u $user > /dev/null 2>&1; then \
+        useradd -u $uid -m $user; \
+    fi; \
+    chown -R $user:$user /var/www; \
+fi
+
 USER $user
+
+# Expor a porta padrão para PHP-FPM
+EXPOSE 9000
+
+# Comando padrão para iniciar o PHP-FPM
+CMD ["php-fpm"]

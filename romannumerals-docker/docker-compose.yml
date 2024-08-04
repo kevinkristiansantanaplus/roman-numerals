@@ -1,46 +1,52 @@
-version: "3.3"
+version: "3.8"
+
 services:
   php-fpm:
     build:
-      args:
-        user: kevinkristian
-        uid: 1000
       context: ./
       dockerfile: ./php/Dockerfile
-    image: romannumerals-php-fpm
-    container_name: romannumerals-app
+      args:
+        user: root
+        uid: 1000
+    image: php-fpm:8.0
+    container_name: romannumerals-api
     restart: unless-stopped
-    working_dir: /var/www/
+    working_dir: /var/www
     volumes:
       - ../:/var/www
     networks:
-      - romannumerals-network
+      - romannumerals-appnetwork
 
   nginx:
     image: nginx:alpine
-    container_name: romannumerals-nginx
+    container_name: nginx
     restart: unless-stopped
     ports:
-      - 8000:80
+      - "8000:80"
     volumes:
       - ../:/var/www
       - ./nginx/sites/:/etc/nginx/conf.d/
       - ./nginx/log/:/var/log/nginx/
     networks:
-      - romannumerals-network
+      - romannumerals-appnetwork
+    depends_on:
+      - php-fpm
 
-  npm-ng-12: 
-    build: ./npm
-    container_name: romannumerals-node
-    image: npm
+  angular:
+    build:
+      context: ./
+      dockerfile: ./npm/Dockerfile
+    image: angular-cli:20
+    container_name: romannumerals-app
     restart: unless-stopped
-    tty: true
+    ports:
+      - "4200:4200"
     volumes:
-     - ../:/var/www 
-    command: bash -c "npm i && ng s --host 0.0.0.0 --disableHostCheck"
+      - ../:/var/www
+    command: bash -c "npm install && ng serve --host 0.0.0.0"
     networks:
-      - romannumerals-network
+      - romannumerals-appnetwork
 
 networks:
-  romannumerals-network:
+  romannumerals-appnetwork:
     driver: bridge
