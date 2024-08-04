@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Número Romano</title>
+</head>
+<body>
+    <div class="container">
+        <main class="form-converter">
+            <h1 class="title">Conversor de Número Romano</h1>
+
+            <form [formGroup]="formConverter" (ngSubmit)="conversion()">
+
+                <div class="mb-3">
+                    <label for="decimal" class="form-label">Número Decimal</label>
+                    <input formControlName="decimal" type="number" id="decimal" class="form-control" placeholder="Digite um número decimal">
+                </div>
+
+                <div class="mb-3">
+                    <label for="roman" class="form-label">Número Romano</label>
+                    <input formControlName="roman" type="text" id="roman" class="form-control" placeholder="Digite um número romano">
+                </div>
+
+                <div *ngIf="messageSuccess" class="alert alert-success mt-3">
+                    {{ messageSuccess }}
+                </div>
+
+                <div *ngIf="messageError" class="alert alert-danger mt-3">
+                    {{ messageError }}
+                </div>
+
+                <button class="btn-submit" type="submit">Converter</button>
+            </form>
+
+            <div class="info-section">
+                <h2>Números Romanos</h2>
+                <p>Os números romanos constituem um sistema de numeração que utiliza os símbolos/letras: I, V, X, L, C, D, M. Cada um desses símbolos possui um valor correspondente no sistema de numeração Indo-Arábico, que são:</p>
+                
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th>Números Romanos</th>
+                            <th>Números Indo-arábicos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>I</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>V</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>X</td>
+                            <td>10</td>
+                        </tr>
+                        <tr>
+                            <td>L</td>
+                            <td>50</td>
+                        </tr>
+                        <tr>
+                            <td>C</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>D</td>
+                            <td>500</td>
+                        </tr>
+                        <tr>
+                            <td>M</td>
+                            <td>1000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
