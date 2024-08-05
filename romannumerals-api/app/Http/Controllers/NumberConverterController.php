@@ -111,7 +111,7 @@ class NumberConverterController extends Controller
             return response()->json([
 
                 'message'  => 'Houve um erro no servidor, favor contatar o suporte',
-                'status'   => 200
+                'status'   => 500
 
             ]);
 

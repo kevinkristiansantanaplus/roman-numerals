@@ -10,22 +10,31 @@ class NumberConverterService
     public function convertToNumeral($letters)
     {
 
-        $numeral    = 0;
-        $letters    = strtoupper($letters);
-        $qtdLetters = str_split($letters);
+        $numeral      = 0;
+        $letters      = strtoupper($letters);
+        $arrayLetters = strlen($letters);
 
-        for($i = 0; $i < count($qtdLetters); $i++)
+        $numbersRoman = RomanNumerals::getAll();
+
+        for($i = 0; $i < $arrayLetters; $i++)
         {
 
-            foreach(RomanNumerals::getAll() as $romanNumber => $number)
+            $currentLetter = $arrayLetters[$i];
+
+            $number = isset($numbersRoman[$currentLetter]) ? $numbersRoman[$currentLetter] : 0;
+
+            $nextNumber = ($i + 1 < $arrayLetters) ? $numbersRoman[$arrayLetters[$i + 1]] : 0;
+
+            if ($number < $nextNumber) 
             {
 
-                if($letters[$i] == $romanNumber)
-                {
+                $numeral -= $number;
 
-                    $numeral += $number;
+            }
+            else 
+            {
 
-                }
+                $numeral += $number;
 
             }
 
