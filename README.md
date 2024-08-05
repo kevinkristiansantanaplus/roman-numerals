@@ -4,11 +4,7 @@ Antes de dar segmento aos passos deste documento, certifique-se de que o docker 
 
 ## Clone dos Repositório GIT
 
-Crie um diretório com o nome do projeto
-
-``` mkdir romannumerals ```
-
-e clone os repositórios dentro do diretório criado
+Clone o repositório dentro do diretório criado
 
 ``` git clone https://github.com/kevinkristiansantanaplus/roman-numerals/ ```
 
