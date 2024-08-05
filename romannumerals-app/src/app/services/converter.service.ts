@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IResponse } from '../interfaces/IResponse';
@@ -9,7 +9,7 @@ import { IConverter } from '../interfaces/IConverter';
 })
 export class ConverterService {
 
-  url: string = 'http://127.0.0.1:8000/api/'
+  url: string = 'http://romannumerals-api.local:8000/api/'
 
   constructor(private http: HttpClient) { }
 

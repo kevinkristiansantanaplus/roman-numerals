@@ -13,13 +13,8 @@
             <form [formGroup]="formConverter" (ngSubmit)="conversion()">
 
                 <div class="mb-3">
-                    <label for="decimal" class="form-label">Número Decimal</label>
-                    <input formControlName="decimal" type="number" id="decimal" class="form-control" placeholder="Digite um número decimal">
-                </div>
-
-                <div class="mb-3">
-                    <label for="roman" class="form-label">Número Romano</label>
-                    <input formControlName="roman" type="text" id="roman" class="form-control" placeholder="Digite um número romano">
+                    <label for="input" class="form-label">Número Decimal Ou Romano</label>
+                    <input formControlName="input" id="input" class="form-control" placeholder="Digite um número decimal ou Romano">
                 </div>
 
                 <div *ngIf="messageSuccess" class="alert alert-success mt-3">
