@@ -15,13 +15,13 @@ export class ConverterService {
 
   getInRoman(decimal: number): Observable<IResponse<IConverter>> {
 
-    return this.http.get<IResponse<IConverter>>(`${this.url}v1/numeral-roman/${decimal}`)
+    return this.http.get<IResponse<IConverter>>(`${this.url}v1/arabic-to-roman/${decimal}`)
 
   }
 
   getInNumber(roman: string): Observable<IResponse<IConverter>> {
 
-    return this.http.get<IResponse<IConverter>>(`${this.url}v1/roman-numeral/${roman}`)
+    return this.http.get<IResponse<IConverter>>(`${this.url}v1/roman-to-arabic/${roman}`)
 
   }
 
