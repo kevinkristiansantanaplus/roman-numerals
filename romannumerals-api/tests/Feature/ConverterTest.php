@@ -21,7 +21,7 @@ class ConverterTest extends TestCase
     public function testNumeralToRomanWithValidNumber()
     {
 
-        $response = $this->json('GET', '/api/v1/numeral-roman/10');
+        $response = $this->json('GET', '/api/v1/arabic-to-roman/10');
 
         $response->assertStatus(200)
                 ->assertJson([
@@ -38,17 +38,19 @@ class ConverterTest extends TestCase
     public function testRomanToNumeralWithValidLetter()
     {
 
-        $response = $this->json('GET', '/api/v1/roman-numeral/XX');
+        $response = $this->json('GET', '/api/v1/roman-to-arabic/x');
 
         $response->assertStatus(200)
                  ->assertJson([
                      'message' => 'Dados recuperados com sucesso.',
+                     'status'  => 200,
                      'data'    => 
                      [
-                         'roman' => 'XX',
-                         'number' => 20
+                         'roman' => 'X',
+                         'number' => 10
                      ]
                  ]);
+
     }
 
 }

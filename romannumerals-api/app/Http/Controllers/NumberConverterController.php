@@ -16,7 +16,7 @@ class NumberConverterController extends Controller
 
     }
 
-    public function numeralToRoman($decimal)
+    public function arabicToRoman($decimal)
     {
 
         $number = $decimal;
@@ -29,7 +29,7 @@ class NumberConverterController extends Controller
                 'message' => 'Insira um número menor que 50000.',
                 'status'  => 400
 
-            ]);
+            ], 400);
 
         }
 
@@ -50,7 +50,7 @@ class NumberConverterController extends Controller
 
                 ]
 
-            ]);
+            ], 200);
 
         }
         catch(\Exception $e)
@@ -61,13 +61,13 @@ class NumberConverterController extends Controller
                 'message' => 'Houve um erro no servidor, favor contatar o suporte',
                 'status'  => 500
 
-            ]);
+            ], 500);
 
         }
 
     }
 
-    public function romanToNumeral(Request $request)
+    public function romanToArabic(Request $request)
     {
 
         $letters = $request->letters;
@@ -82,7 +82,7 @@ class NumberConverterController extends Controller
                 'message' => 'Insira um número em romano válido.',
                 'status'  => 400
 
-            ]);
+            ], 400);
 
         }
 
@@ -97,12 +97,12 @@ class NumberConverterController extends Controller
                 'status'   => 200,
                 'data'     => [
 
-                    'roman'  => $letters,
+                    'roman'  => strtoupper($letters),
                     'number' => $number
 
                 ]
 
-            ]);
+            ], 200);
 
         }
         catch(\Exception $e)
@@ -113,7 +113,7 @@ class NumberConverterController extends Controller
                 'message'  => 'Houve um erro no servidor, favor contatar o suporte',
                 'status'   => 500
 
-            ]);
+            ], 500);
 
         }
 

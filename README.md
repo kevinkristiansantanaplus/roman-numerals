@@ -1,16 +1,14 @@
 ## Pré-Requisitos
 
-Antes de dar segmento aos passos deste documento, certifique-se de que o docker e o docker-compose estão devidamente instalados.
+Antes de dar segmento aos passos deste documento, certifique-se de que o docker e o docker-compose estão devidamente instalados e verifique se a versão do documento é compátivel com sua versão docker, faça as mudanças necessárias.
 
 ## Clone dos Repositório GIT
 
-Crie um diretório com o nome do projeto
+Clone o repositório dentro do diretório criado
 
-``` mkdir romannumerals ```
-
-e clone os repositórios dentro do diretório criado
-
-``` git clone https://github.com/kevinkristiansantanaplus/roman-numerals/ ```
+``` 
+    git clone https://github.com/kevinkristiansantanaplus/roman-numerals/ 
+```
 
 ## _Configuração do Docker no Linux_
 
@@ -39,17 +37,30 @@ Agora, execute esses comandos para poder realizar todas as configurações da AP
     && docker container exec -it romannumerals-app npm build
 ```
 
+Caso esses comandos não funcionem diretamente, acesso o container com: 
+
+```
+    docker exec -it nome_ou_id_container /bin/bash
+```
+
+E execute os comandos invidualmente
+
 ## Hosts
 
 Agora que o projeto já está configurado, vamos criar um nome mais amigável para poder acessar a aplicação.
 
 Em seu terminal, digite o seguintes comando
 
-``` sudo nano /etc/hosts ```
+``` 
+    sudo nano /etc/hosts 
+```
 
 dentro do arquivo crie um alias para o IP de Loopback
 
-``` 127.0.0.1	romannumerals-api.local ```
+``` 
+    127.0.0.1	romannumerals-api.local 
+    127.0.0.1	romannumerals-app.local
+```
 
 Aperte CRTL + O para salvar a alteração e CRTL + X para sair do arquivo.
 
@@ -61,7 +72,9 @@ Em seu browser, acesse http://romannumerals-api.local:8000 para poder verificar 
 
 Para rodar os testes de integração, basta rodar o seguinte comando
 
-``` php artisan test ```
+``` 
+    php artisan test 
+```
 
 Para poder entender os retornos da API, pode acessar a documentação com o link
 
